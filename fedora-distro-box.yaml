@@ -62,6 +62,11 @@
     # DO not fail if oh-my-zsh is installed
     failed_when: "'need to remove it if you want to reinstall' not in command_result.stdout"
 
+  - name: oh-my-zsh - remove install script
+    ansible.builtin.file:
+      path: install.sh
+      state: absent
+
   # Must be last task to execute.
   - name: Set box base_box_homedir dir permissions
     ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"

@@ -1,0 +1,1 @@
+ansible-playbook fedora-distro-box.yaml --extra-vars "home=/home/myakove user=myakove"
