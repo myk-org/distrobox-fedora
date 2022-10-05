@@ -6,9 +6,6 @@
     box_homedir: "{{ home }}/distrobox/fedora"
 
   tasks:
-  - name: Download oh-my-zsh install script locally
-    ansible.builtin.shell: wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O install.sh
-
   - name: Install the latest version of Distrobox
     ansible.builtin.package:
       name: distrobox
@@ -29,7 +26,7 @@
   - name: dnf - install packages
     community.docker.docker_container_exec:
       container: fedora
-      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip
+      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip fira-code-fonts vim neovim tmux origin-clients dnf-automatic
 
   - name: pip - install packages
     community.docker.docker_container_exec:
@@ -44,29 +41,57 @@
   - name: Set box base_box_homedir dir permissions
     ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
 
+  - name: Download oh-my-zsh install script locally
+    ansible.builtin.shell: wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O install.sh
+
   - name: oh-my-zsh - copy install script
     ansible.builtin.copy:
       src: install.sh
       dest: "{{ box_homedir }}/install.sh"
 
-  - name: oh-my-zsh - copy .zshrc script
-    ansible.builtin.copy:
-      src: .zshrc
-      dest: "{{ box_homedir }}/.zshrc"
-
   - name: oh-my-zsh - install
     community.docker.docker_container_exec:
       container: fedora
       command: sh "{{ box_homedir }}"/install.sh
+      user: "{{ user }}"
     register: command_result
     # DO not fail if oh-my-zsh is installed
-    failed_when: "'need to remove it if you want to reinstall' not in command_result.stdout"
+    failed_when: "not command_result.stdout"
 
   - name: oh-my-zsh - remove install script
     ansible.builtin.file:
       path: install.sh
       state: absent
 
-  # Must be last task to execute.
-  - name: Set box base_box_homedir dir permissions
-    ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
+  - name: oh-my-zsh - copy needed files to home directory
+    ansible.builtin.copy:
+      src: files/to-home-dir/
+      dest: "{{ box_homedir }}/"
+
+  - name: clone zsh plugins
+    ansible.builtin.git:
+      repo: "{{ item.repo}}"
+      dest: "{{ box_homedir }}/.oh-my-zsh/custom/plugins/{{ item.name }}"
+    loop:
+    - { repo: 'https://github.com/TamCore/autoupdate-oh-my-zsh-plugins', name: 'autoupdate' }
+    - { repo: 'https://github.com/chrissicool/zsh-256color', name: 'zsh-256color' }
+    - { repo: 'https://github.com/zsh-users/zsh-autosuggestions', name: 'zsh-autosuggestions' }
+    - { repo: 'https://github.com/zdharma/fast-syntax-highlighting.git', name: 'fast-syntax-highlighting' }
+    - { repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git', name: 'zsh-syntax-highlighting' }
+
+  - name: clone astro-nvim
+    ansible.builtin.git:
+      repo: https://github.com/AstroNvim/AstroNvim
+      dest: "{{ box_homedir }}/.config/nvim"
+
+  - name: Create ~/.local/bin/ directory
+    ansible.builtin.file:
+      path: "{{ box_homedir }}/.local/bin/"
+      state: directory
+
+  - name: Download kubectl
+    ansible.builtin.get_url:
+      # TODO: use version from $(curl -L -s https://dl.k8s.io/release/stable.txt)
+      url: "https://dl.k8s.io/release/v1.25.2/bin/linux/amd64/kubectl"
+      dest: "{{ box_homedir }}/.local/bin/kubectl"
+      mode: '+x'
