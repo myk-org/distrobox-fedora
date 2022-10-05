@@ -2,9 +2,8 @@
   hosts: localhost
   connection: local
   vars:
-    base_box_homedir: $HOME/distrobox
-    box_homedir: $HOME/distrobox/fedora
-    user: $USER
+    base_box_homedir: "{{ home }}/distrobox"
+    box_homedir: "{{ home }}/distrobox/fedora"
 
   tasks:
   - name: Download oh-my-zsh install script locally
@@ -19,13 +18,13 @@
   - name: Create latest Fedora box
     ansible.builtin.shell: distrobox create --yes --image fedora:36 --name fedora --home "{{ box_homedir }}"
 
-  - name: Initilaize Fedora box
+  - name: Initialize Fedora box
     ansible.builtin.shell: distrobox-enter fedora -- echo 'Done'
 
-#  - name: dnf - update packages
-#    community.docker.docker_container_exec:
-#      container: fedora
-#      command: dnf -y update
+  - name: dnf - update packages
+    community.docker.docker_container_exec:
+      container: fedora
+      command: dnf -y update
 
   - name: dnf - install packages
     community.docker.docker_container_exec:
@@ -40,9 +39,9 @@
   - name: zsh - Change shell
     community.docker.docker_container_exec:
       container: fedora
-      command: chsh -s /usr/bin/zsh
+      command: sudo -k chsh -s /usr/bin/zsh {{ user }}
 
-  - name: Set box $HOME dir permissions
+  - name: Set box base_box_homedir dir permissions
     ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
 
   - name: oh-my-zsh - copy install script
@@ -59,3 +58,10 @@
     community.docker.docker_container_exec:
       container: fedora
       command: sh "{{ box_homedir }}"/install.sh
+    register: command_result
+    # DO not fail if oh-my-zsh is installed
+    failed_when: "'need to remove it if you want to reinstall' not in command_result.stdout"
+
+  # Must be last task to execute.
+  - name: Set box base_box_homedir dir permissions
+    ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
