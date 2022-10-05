@@ -1,0 +1,61 @@
+- name: Distrobox Fedora
+  hosts: localhost
+  connection: local
+  vars:
+    base_box_homedir: $HOME/distrobox
+    box_homedir: $HOME/distrobox/fedora
+    user: $USER
+
+  tasks:
+  - name: Download oh-my-zsh install script locally
+    ansible.builtin.shell: wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O install.sh
+
+  - name: Install the latest version of Distrobox
+    ansible.builtin.package:
+      name: distrobox
+      state: latest
+    become: true
+
+  - name: Create latest Fedora box
+    ansible.builtin.shell: distrobox create --yes --image fedora:36 --name fedora --home "{{ box_homedir }}"
+
+  - name: Initilaize Fedora box
+    ansible.builtin.shell: distrobox-enter fedora -- echo 'Done'
+
+#  - name: dnf - update packages
+#    community.docker.docker_container_exec:
+#      container: fedora
+#      command: dnf -y update
+
+  - name: dnf - install packages
+    community.docker.docker_container_exec:
+      container: fedora
+      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip
+
+  - name: pip - install packages
+    community.docker.docker_container_exec:
+      container: fedora
+      command: python3 -m pip install pipenv poetry pre-commit git-review tox ipython ipdb
+
+  - name: zsh - Change shell
+    community.docker.docker_container_exec:
+      container: fedora
+      command: chsh -s /usr/bin/zsh
+
+  - name: Set box $HOME dir permissions
+    ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
+
+  - name: oh-my-zsh - copy install script
+    ansible.builtin.copy:
+      src: install.sh
+      dest: "{{ box_homedir }}/install.sh"
+
+  - name: oh-my-zsh - copy .zshrc script
+    ansible.builtin.copy:
+      src: .zshrc
+      dest: "{{ box_homedir }}/.zshrc"
+
+  - name: oh-my-zsh - install
+    community.docker.docker_container_exec:
+      container: fedora
+      command: sh "{{ box_homedir }}"/install.sh
