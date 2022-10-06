@@ -102,10 +102,13 @@
   - name: Apply fonts
     ansible.builtin.shell: fc-cache -v
 
+  - name: Get kubectl laest version
+    ansible.builtin.shell: curl -L -s "https://dl.k8s.io/release/stable.txt"
+    register: kubectl_version_result
+
   - name: Download kubectl
     ansible.builtin.get_url:
-      # TODO: use version from $(curl -L -s https://dl.k8s.io/release/stable.txt)
-      url: "https://dl.k8s.io/release/v1.25.2/bin/linux/amd64/kubectl"
+      url: "https://dl.k8s.io/release/{{ kubectl_version_result.stdout }}/bin/linux/amd64/kubectl"
       dest: "{{ box_homedir }}/.local/bin/kubectl"
       mode: '+x'
 
