@@ -166,6 +166,7 @@ EDITOR=nvim
 GIT_EDITOR=$EDITOR
 
 # Aliases
+alias vim="nvim"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

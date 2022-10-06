@@ -26,6 +26,11 @@
   - name: Set box base_box_homedir dir permissions
     ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
 
+  - name: dnf - enable ocm-cli copr
+    community.docker.docker_container_exec:
+      container: distrobox-fedora
+      command: dnf -y copr enable ocm/tools
+
   - name: dnf - install python3-pip
     community.docker.docker_container_exec:
       container: distrobox-fedora
@@ -44,7 +49,7 @@
   - name: dnf - install packages
     community.docker.docker_container_exec:
       container: distrobox-fedora
-      command: dnf -y install zsh sshpass git util-linux-user wget vim neovim tmux origin-clients dnf-automatic fontconfig awscli
+      command: dnf -y install zsh sshpass git util-linux-user wget vim neovim tmux origin-clients dnf-automatic fontconfig awscli ocm-cli
 
   - name: zsh - Change shell
     community.docker.docker_container_exec:
@@ -133,16 +138,6 @@
       repo: https://github.com/romkatv/powerlevel10k.git
       dest: "{{ box_homedir }}/.oh-my-zsh/custom/themes/powerlevel10k"
       depth: 1
-
-  - name: dnf - enable ocm-cli copr
-    community.docker.docker_container_exec:
-      container: distrobox-fedora
-      command: dnf -y copr enable ocm/tools
-
-  - name: dnf - install ocm-cli
-    community.docker.docker_container_exec:
-      container: distrobox-fedora
-      command: dnf -y install ocm-cli
 
   - name: rosa - download latest tar.gz
     ansible.builtin.get_url:
