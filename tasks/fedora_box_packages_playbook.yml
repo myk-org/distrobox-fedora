@@ -23,8 +23,8 @@
     container: "{{ fedora_box_name }}"
     command: dnf -y install zsh sshpass git util-linux-user wget vim neovim tmux origin-clients dnf-automatic fontconfig awscli ocm-cli
 
-#- name: bash-insulter - just for fun
-#  ansible.builtin.get_url:
-#    url: https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
-#    dest: "{{ box_homedir }}/.local/bin/bash.command-not-found"
-#    mode: "+x"
+- name: bash-insulter - just for fun
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
+    dest: "{{ box_homedir }}/.local/bin/bash.command-not-found"
+    mode: "+x"
