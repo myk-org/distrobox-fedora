@@ -41,6 +41,9 @@
   - name: Set box base_box_homedir dir permissions
     ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
 
+  - name: Create needed directories
+    ansible.builtin.include_tasks: tasks/fedora_box_directories_playbook.yml
+
   - name: Update fedora distrobox packages
     ansible.builtin.include_tasks: tasks/fedora_box_packages_playbook.yml
 

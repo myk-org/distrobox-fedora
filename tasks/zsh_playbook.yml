@@ -45,16 +45,6 @@
     repo: https://github.com/AstroNvim/AstroNvim
     dest: "{{ box_homedir }}/.config/nvim"
 
-- name: Create ~/.local/bin/ directory
-  ansible.builtin.file:
-    path: "{{ box_homedir }}/.local/bin/"
-    state: directory
-
-- name: Create ~/.local/share/fonts/ directory
-  ansible.builtin.file:
-    path: "{{ box_homedir }}/.local/share/fonts/"
-    state: directory
-
 - name: Download fonts for powerlevel10k
   ansible.builtin.copy:
     src: files/fonts/

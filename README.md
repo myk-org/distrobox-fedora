@@ -12,7 +12,7 @@ ansible-galaxy collection install community.general
 ```
 ## Create the box
 ```bash
-ansible-playbook fedora-distro-box.yaml --extra-vars "home=<user home dir> user=<user name>"
+ansible-playbook fedora-distro-box.yml --extra-vars "home=<user home dir> user=<user name>"
 ```
 where home will be the home directory for the user inside the box and user should be the current login user 
 
