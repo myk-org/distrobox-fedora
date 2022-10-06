@@ -31,15 +31,15 @@
       container: distrobox-fedora
       command: dnf -y update
 
+  - name: pip - install packages
+    community.docker.docker_container_exec:
+      container: distrobox-fedora
+      command: python3 -m pip install pipenv poetry pre-commit git-review tox ipython ipdb docker
+
   - name: dnf - install packages
     community.docker.docker_container_exec:
       container: distrobox-fedora
       command: dnf -y install zsh sshpass git util-linux-user wget python3-pip vim neovim tmux origin-clients dnf-automatic fontconfig awscli
-
-  - name: pip - install packages
-    community.docker.docker_container_exec:
-      container: distrobox-fedora
-      command: python3 -m pip install pipenv poetry pre-commit git-review tox ipython ipdb
 
   - name: zsh - Change shell
     community.docker.docker_container_exec:
