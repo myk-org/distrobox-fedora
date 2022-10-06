@@ -142,7 +142,6 @@ pipenv
 )
 
 source $ZSH/oh-my-zsh.sh
-# source $ZSH/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.zsh
 # User configuration
 setopt EXTENDED_GLOB
 unset GREP_OPTIONS
