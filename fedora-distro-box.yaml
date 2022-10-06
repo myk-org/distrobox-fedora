@@ -6,6 +6,9 @@
     box_homedir: "{{ home }}/distrobox/fedora"
     fedora_box_name: distrobox-fedora
 
+  environment:
+    DBX_CONTAINER_MANAGER: "docker"
+
   tasks:
   - name: Install the latest version of Distrobox
     ansible.builtin.package:
