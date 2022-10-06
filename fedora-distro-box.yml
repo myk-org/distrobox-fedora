@@ -1,0 +1,54 @@
+- name: Distrobox Fedora
+  hosts: localhost
+  connection: local
+
+  environment:
+    DBX_CONTAINER_MANAGER: "docker"
+
+  pre_tasks:
+  - name: Set box name as fact
+    ansible.builtin.set_fact:
+      fedora_box_name: distrobox-fedora
+
+  - name: Set base box homedir as fact
+    ansible.builtin.set_fact:
+      base_box_homedir: "{{ home }}/distrobox"
+
+  - name: Set homedir as fact
+    ansible.builtin.set_fact:
+      box_homedir: "{{ base_box_homedir }}/fedora"
+
+  - name: Install the latest version of Distrobox
+    ansible.builtin.package:
+      name: distrobox
+      state: latest
+    become: true
+
+  - name: pip - install docker
+    ansible.builtin.pip:
+      name: docker
+      state: latest
+
+  - name: Create box_homedir directory
+    ansible.builtin.file:
+      path: "{{ box_homedir }}"
+      state: directory
+
+  tasks:
+  - name: Run distrobox commands
+    ansible.builtin.include_tasks: tasks/distrobox_playbook.yml
+
+  - name: Set box base_box_homedir dir permissions
+    ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
+
+  - name: Create needed directories
+    ansible.builtin.include_tasks: tasks/fedora_box_directories_playbook.yml
+
+  - name: Update fedora distrobox packages
+    ansible.builtin.include_tasks: tasks/fedora_box_packages_playbook.yml
+
+  - name: Configure zsh
+    ansible.builtin.include_tasks: tasks/zsh_playbook.yml
+
+  - name: Install Openshift-related packages
+    ansible.builtin.include_tasks: tasks/openshift_packages_playbook.yml

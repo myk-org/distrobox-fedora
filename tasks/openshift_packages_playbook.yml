@@ -1,0 +1,20 @@
+- name: Get kubectl laest version
+  ansible.builtin.shell: curl -L -s "https://dl.k8s.io/release/stable.txt"
+  register: kubectl_version_result
+
+- name: Download kubectl
+  ansible.builtin.get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_version_result.stdout }}/bin/linux/amd64/kubectl"
+    dest: "{{ box_homedir }}/.local/bin/kubectl"
+    mode: '+x'
+
+- name: rosa - download latest tar.gz
+  ansible.builtin.get_url:
+    url: https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+    dest: "{{ box_homedir }}/rosa-linux.tar.gz"
+
+- name: Extract rosa into ~/.local/bin/
+  ansible.builtin.unarchive:
+    src: "{{ box_homedir }}/rosa-linux.tar.gz"
+    dest: "{{ box_homedir }}/.local/bin/"
+    mode: "+x"
