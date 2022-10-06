@@ -1,0 +1,30 @@
+- name: dnf - enable ocm-cli copr
+  community.docker.docker_container_exec:
+    container: "{{ fedora_box_name }}"
+    command: dnf -y copr enable ocm/tools
+
+- name: dnf - install python3-pip
+  community.docker.docker_container_exec:
+    container: "{{ fedora_box_name }}"
+    command: dnf -y install python3-pip
+
+- name: pip - install packages
+  community.docker.docker_container_exec:
+    container: "{{ fedora_box_name }}"
+    command: python3 -m pip install pipenv poetry pre-commit git-review tox ipython ipdb docker
+
+- name: dnf - update packages
+  community.docker.docker_container_exec:
+    container: "{{ fedora_box_name }}"
+    command: dnf -y update
+
+- name: dnf - install packages
+  community.docker.docker_container_exec:
+    container: "{{ fedora_box_name }}"
+    command: dnf -y install zsh sshpass git util-linux-user wget vim neovim tmux origin-clients dnf-automatic fontconfig awscli ocm-cli
+
+#- name: bash-insulter - just for fun
+#  ansible.builtin.get_url:
+#    url: https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
+#    dest: "{{ box_homedir }}/.local/bin/bash.command-not-found"
+#    mode: "+x"
