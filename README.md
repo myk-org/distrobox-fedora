@@ -1,3 +1,4 @@
+Create a Fedora container via [distrobox](https://github.com/89luca89/distrobox)
 
 ## Requirements
 [ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html): install using package manager
@@ -21,5 +22,7 @@ distrobox-enter distrobox-fedora
 ```
 
 ## Tips
-To enter automatically configure your terminal to exec ```distrobox-enter distrobox-fedora``` on each new shell
-Inside the box $HOME will be the box home (under distrobox/fedora) and the local user home is $HOST_HOME
+To enter automatically configure your terminal to exec ```distrobox-enter distrobox-fedora``` on each new shell  
+Inside the box $HOME will be the box home (under distrobox/fedora) and the local user home is $HOST_HOME  
+To execute command on the host from the box run `distrobox-host-exec <command>`  
+
