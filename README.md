@@ -18,6 +18,7 @@ where home will be the home directory for the user inside the box and user shoul
 
 ## Usage
 ```bash
+export DBX_CONTAINER_MANAGER="docker"
 distrobox-enter distrobox-fedora
 ```
 
