@@ -29,7 +29,7 @@
   - name: dnf - install packages
     community.docker.docker_container_exec:
       container: distrobox-fedora
-      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip fira-code-fonts vim neovim tmux origin-clients dnf-automatic fontconfig
+      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip vim neovim tmux origin-clients dnf-automatic fontconfig
 
   - name: pip - install packages
     community.docker.docker_container_exec:

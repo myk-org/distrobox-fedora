@@ -157,6 +157,16 @@ if [ -f $HOME/.local/bin/bash.command-not-found ]; then
     . $HOME/.local/bin/bash.command-not-found
 fi
 
+
+# USer exports
+export HOST_HOME=/home/$USER
+
+# Default editor
+EDITOR=nvim
+GIT_EDITOR=$EDITOR
+
+# Aliases
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
