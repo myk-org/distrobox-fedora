@@ -34,7 +34,7 @@
   - name: dnf - install packages
     community.docker.docker_container_exec:
       container: distrobox-fedora
-      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip vim neovim tmux origin-clients dnf-automatic fontconfig
+      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip vim neovim tmux origin-clients dnf-automatic fontconfig awscli
 
   - name: pip - install packages
     community.docker.docker_container_exec:
@@ -128,3 +128,25 @@
       repo: https://github.com/romkatv/powerlevel10k.git
       dest: "{{ box_homedir }}/.oh-my-zsh/custom/themes/powerlevel10k"
       depth: 1
+
+  - name: dnf - enable ocm-cli copr
+    community.docker.docker_container_exec:
+      container: distrobox-fedora
+      command: dnf -y copr enable ocm/tools
+
+  - name: dnf - install ocm-cli
+    community.docker.docker_container_exec:
+      container: distrobox-fedora
+      command: dnf -y install ocm-cli
+
+  - name: rosa - download latest tar.gz
+    ansible.builtin.get_url:
+      url: https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+      dest: "{{ box_homedir }}/rosa-linux.tar.gz"
+
+  - name: Extract rosa into ~/.local/bin/
+    ansible.builtin.unarchive:
+      src: "{{ box_homedir }}/rosa-linux.tar.gz"
+      dest: "{{ box_homedir }}/.local/bin/"
+      mode: "+x"
+
