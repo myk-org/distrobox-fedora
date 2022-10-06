@@ -3,6 +3,3 @@
 
 - name: Initialize distrobox-fedora
   ansible.builtin.shell: distrobox-enter "{{ fedora_box_name }}" -- echo 'Done'
-
-- name: Set box base_box_homedir dir permissions
-  ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"

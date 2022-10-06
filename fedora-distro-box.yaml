@@ -37,21 +37,15 @@
   tasks:
   - name: Run distrobox commands
     ansible.builtin.include_tasks: tasks/distrobox_playbook.yml
-#    vars:
-#      user: "{{ user }}"
-#      base_box_homedir: "{{ base_box_homedir }}"
+
+  - name: Set box base_box_homedir dir permissions
+    ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
 
   - name: Update fedora distrobox packages
     ansible.builtin.include_tasks: tasks/fedora_box_packages_playbook.yml
-#    vars:
-#      fedora_box_name: "{{ fedora_box_name }}"
 
   - name: Configure zsh
     ansible.builtin.include_tasks: tasks/zsh_playbook.yml
-#    vars:
-#      box_homedir: "{{ box_homedir }}"
 
   - name: Install Openshift-related packages
     ansible.builtin.include_tasks: tasks/openshift_packages_playbook.yml
-#    vars:
-#      box_homedir: "{{ box_homedir }}"
