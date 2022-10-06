@@ -29,7 +29,7 @@
   - name: dnf - install packages
     community.docker.docker_container_exec:
       container: distrobox-fedora
-      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip fira-code-fonts vim neovim tmux origin-clients dnf-automatic
+      command: dnf -y install zsh sshpass git util-linux-user wget python3-pip fira-code-fonts vim neovim tmux origin-clients dnf-automatic fontconfig
 
   - name: pip - install packages
     community.docker.docker_container_exec:
@@ -42,17 +42,17 @@
       command: sudo -k chsh -s /usr/bin/zsh {{ user }}
 
   - name: Download oh-my-zsh install script locally
-    ansible.builtin.shell: wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O install.sh
+    ansible.builtin.shell: wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O zsh-install.sh
 
   - name: oh-my-zsh - copy install script
     ansible.builtin.copy:
-      src: install.sh
-      dest: "{{ box_homedir }}/install.sh"
+      src: zsh-install.sh
+      dest: "{{ box_homedir }}/zsh-install.sh"
 
   - name: oh-my-zsh - install
     community.docker.docker_container_exec:
       container: distrobox-fedora
-      command: sh "{{ box_homedir }}"/install.sh
+      command: sh "{{ box_homedir }}"/zsh-install.sh
       user: "{{ user }}"
     register: command_result
     # DO not fail if oh-my-zsh is installed
@@ -60,7 +60,7 @@
 
   - name: oh-my-zsh - remove install script
     ansible.builtin.file:
-      path: install.sh
+      path: zsh-install.sh
       state: absent
 
   - name: oh-my-zsh - copy needed files to home directory
@@ -88,6 +88,19 @@
     ansible.builtin.file:
       path: "{{ box_homedir }}/.local/bin/"
       state: directory
+
+  - name: Create ~/.local/share/fonts/ directory
+    ansible.builtin.file:
+      path: "{{ box_homedir }}/.local/share/fonts/"
+      state: directory
+
+  - name: Download fonts for powerlevel10k
+    ansible.builtin.copy:
+      src: files/fonts/
+      dest: "{{ box_homedir }}/.local/share/fonts/"
+
+  - name: Apply fonts
+    ansible.builtin.shell: fc-cache -v
 
   - name: Download kubectl
     ansible.builtin.get_url:
