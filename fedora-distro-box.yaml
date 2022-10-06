@@ -112,6 +112,12 @@
       dest: "{{ box_homedir }}/.local/bin/kubectl"
       mode: '+x'
 
+  - name: bash-insulter - just for fun
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
+      dest: "{{ box_homedir }}/.local/bin/bash.command-not-found"
+      mode: "+x"
+
   - name: clone powerlevel10k zsh theme
     ansible.builtin.git:
       repo: https://github.com/romkatv/powerlevel10k.git

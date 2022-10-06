@@ -153,6 +153,10 @@ autoload h-list zca zca-usetty-wrapper zca-widget
 zle -N zca-widget
 bindkey '^T' zca-widget
 
+if [ -f $HOME/.local/bin/bash.command-not-found ]; then
+    . $HOME/.local/bin/bash.command-not-found
+fi
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
