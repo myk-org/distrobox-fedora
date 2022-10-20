@@ -12,6 +12,7 @@
   community.docker.docker_container_exec:
     container: "{{ fedora_box_name }}"
     command: python3 -m pip install pipenv poetry pre-commit git-review tox ipython ipdb docker
+    user: "{{ user }}"
 
 - name: dnf - update packages
   community.docker.docker_container_exec:
@@ -21,7 +22,7 @@
 - name: dnf - install packages
   community.docker.docker_container_exec:
     container: "{{ fedora_box_name }}"
-    command: dnf -y install zsh sshpass git util-linux-user wget vim neovim tmux origin-clients dnf-automatic fontconfig awscli ocm-cli
+    command: dnf -y install zsh sshpass git util-linux-user wget vim neovim tmux origin-clients dnf-automatic fontconfig awscli ocm-cli npm make golang-bin gcc-c++
 
 - name: bash-insulter - just for fun
   ansible.builtin.get_url:

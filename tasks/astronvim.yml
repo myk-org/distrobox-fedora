@@ -1,0 +1,18 @@
+- name: clone AstroNvim
+  ansible.builtin.git:
+    repo: https://github.com/AstroNvim/AstroNvim
+    dest: "{{ box_homedir }}/.config/nvim"
+
+- name: AstroNvim - run PackerSync
+  community.docker.docker_container_exec:
+    container: "{{ fedora_box_name }}"
+    command: nvim  --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+    user: "{{ user }}"
+
+- name: AstroNvim - run MasonInstall
+  community.docker.docker_container_exec:
+    container: "{{ fedora_box_name }}"
+    command: nvim  --headless -c 'MasonInstall black isort yamlfmt markdownlint jsonlint shellcheck pyright yaml-language-server marksman json-lsp gopls dockerfile-language-server bash-language-server awk-language-server ansible-language-server'
+    user: "{{ user }}"
+  async: 10
+  poll: 0

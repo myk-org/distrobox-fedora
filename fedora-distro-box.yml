@@ -14,7 +14,7 @@
     ansible.builtin.set_fact:
       base_box_homedir: "{{ home }}/distrobox"
 
-  - name: Set homedir as fact
+  - name: Set Fedora homedir as fact
     ansible.builtin.set_fact:
       box_homedir: "{{ base_box_homedir }}/fedora"
 
@@ -35,7 +35,7 @@
       state: directory
 
   tasks:
-  - name: Run distrobox commands
+  - name: Create and initialize Fedora box
     ansible.builtin.include_tasks: tasks/distrobox_playbook.yml
 
   - name: Set box base_box_homedir dir permissions
@@ -44,8 +44,11 @@
   - name: Create needed directories
     ansible.builtin.include_tasks: tasks/fedora_box_directories_playbook.yml
 
-  - name: Update fedora distrobox packages
+  - name: Update and install Fedora box packages
     ansible.builtin.include_tasks: tasks/fedora_box_packages_playbook.yml
+
+  - name: Install and configure AstroNvim
+    ansible.builtin.include_tasks: tasks/astronvim.yml
 
   - name: Configure zsh
     ansible.builtin.include_tasks: tasks/zsh_playbook.yml
