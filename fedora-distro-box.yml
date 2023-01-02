@@ -21,11 +21,6 @@
       state: latest
     become: true
 
-#  - name: pip - install docker
-#    ansible.builtin.pip:
-#      name: docker
-#      state: latest
-
   - name: Create box_homedir directory
     ansible.builtin.file:
       path: "{{ box_homedir }}"
