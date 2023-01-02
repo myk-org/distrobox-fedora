@@ -2,8 +2,8 @@
   hosts: localhost
   connection: local
 
-  environment:
-    DBX_CONTAINER_MANAGER: "docker"
+#  environment:
+#    DBX_CONTAINER_MANAGER: "docker"
 
   pre_tasks:
   - name: Set box name as fact
