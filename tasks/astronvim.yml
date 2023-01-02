@@ -6,6 +6,10 @@
 - name: AstroNvim - run PackerSync
   ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- nvim  --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
+# Sometimes first try pass but not applied
+- name: AstroNvim - run PackerSync (Second try)
+  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- nvim  --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
 - name: AstroNvim - run MasonInstall
   ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- nvim  --headless -c 'MasonInstall black isort yamlfmt markdownlint jsonlint shellcheck pyright yaml-language-server marksman json-lsp gopls dockerfile-language-server bash-language-server awk-language-server ansible-language-server'
   async: 10
