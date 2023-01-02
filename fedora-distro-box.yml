@@ -5,7 +5,7 @@
   pre_tasks:
   - name: Set box name as fact
     ansible.builtin.set_fact:
-      fedora_box_name: distrobox-fedora
+      box_name: fedora-37
 
   - name: Set base box homedir as fact
     ansible.builtin.set_fact:
@@ -13,7 +13,7 @@
 
   - name: Set Fedora homedir as fact
     ansible.builtin.set_fact:
-      box_homedir: "{{ base_box_homedir }}/fedora"
+      box_homedir: "{{ base_box_homedir }}/{{ box_name }}"
 
   - name: Install the latest version of Distrobox
     ansible.builtin.package:
@@ -21,10 +21,10 @@
       state: latest
     become: true
 
-  - name: pip - install docker
-    ansible.builtin.pip:
-      name: docker
-      state: latest
+#  - name: pip - install docker
+#    ansible.builtin.pip:
+#      name: docker
+#      state: latest
 
   - name: Create box_homedir directory
     ansible.builtin.file:

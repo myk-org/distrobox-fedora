@@ -18,3 +18,9 @@
     src: "{{ box_homedir }}/rosa-linux.tar.gz"
     dest: "{{ box_homedir }}/.local/bin/"
     mode: "+x"
+
+- name: Download ocm-cli
+  ansible.builtin.get_url:
+    url: https://github.com/openshift-online/ocm-cli/releases/latest/download/ocm-linux-amd64
+    dest: "{{ box_homedir }}/.local/bin/ocm-cli"
+    mode: '+x'

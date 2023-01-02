@@ -43,23 +43,20 @@ ansible-galaxy collection install community.general
 ```
 ## Create the box
 ```bash
-ansible-playbook fedora-distro-box.yml --extra-vars "home=<user home dir> user=<user name>"
+ansible-playbook fedora-distro-box.yml --extra-vars "home=<user home dir> user=<user name> box_name=<box name (default is distrobox-fedora)>"
 ```
 where home will be the home directory for the user inside the box and user should be the current login user 
 
 ## Usage
 ```bash
-distrobox-enter distrobox-fedora
+distrobox-enter distrobox-fedora # Or the name of the box if passed in the command
 ```
 
 ## vim Usage
 vim uses [AstroNvim](https://github.com/AstroNvim/AstroNvim)
-On the first login, run:
-```bash
-nvim +PackerSync
-```
+
 
 ## Tips
 To enter automatically configure your terminal to exec ```distrobox-enter distrobox-fedora``` on each new shell  
-Inside the box $HOME will be the box home (under distrobox/fedora) and the local user home is $HOST_HOME  
+Inside the box $HOME will be the box home (under distrobox/<box name>) and the local user home is $HOST_HOME  
 To execute command on the host from the box run `distrobox-host-exec <command>`  

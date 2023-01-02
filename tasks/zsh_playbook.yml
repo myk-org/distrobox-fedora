@@ -1,7 +1,5 @@
 - name: zsh - Change shell
-  community.docker.docker_container_exec:
-    container: "{{ fedora_box_name }}"
-    command: sudo -k chsh -s /usr/bin/zsh {{ user }}
+  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sudo -k chsh -s /usr/bin/zsh {{ user }}
 
 - name: Download oh-my-zsh install script locally
   ansible.builtin.shell: wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O zsh-install.sh
@@ -12,10 +10,7 @@
     dest: "{{ box_homedir }}/zsh-install.sh"
 
 - name: oh-my-zsh - install
-  community.docker.docker_container_exec:
-    container: "{{ fedora_box_name }}"
-    command: sh "{{ box_homedir }}"/zsh-install.sh
-    user: "{{ user }}"
+  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sh "{{ box_homedir }}"/zsh-install.sh
   register: command_result
   # DO not fail if oh-my-zsh is installed
   failed_when: "not command_result.stdout"

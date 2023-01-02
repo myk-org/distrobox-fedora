@@ -1,28 +1,11 @@
-- name: dnf - enable ocm-cli copr
-  community.docker.docker_container_exec:
-    container: "{{ fedora_box_name }}"
-    command: dnf -y copr enable ocm/tools
-
-- name: dnf - install python3-pip
-  community.docker.docker_container_exec:
-    container: "{{ fedora_box_name }}"
-    command: dnf -y install python3-pip
-
-- name: pip - install packages
-  community.docker.docker_container_exec:
-    container: "{{ fedora_box_name }}"
-    command: python3 -m pip install pipenv poetry pre-commit git-review tox ipython ipdb docker
-    user: "{{ user }}"
-
 - name: dnf - update packages
-  community.docker.docker_container_exec:
-    container: "{{ fedora_box_name }}"
-    command: dnf -y update
+  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sudo dnf -y update
 
 - name: dnf - install packages
-  community.docker.docker_container_exec:
-    container: "{{ fedora_box_name }}"
-    command: dnf -y install zsh sshpass git util-linux-user wget vim neovim tmux origin-clients dnf-automatic fontconfig awscli ocm-cli npm make golang-bin gcc-c++
+  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sudo dnf -y install python3-pip zsh sshpass git util-linux-user wget vim neovim tmux origin-clients dnf-automatic fontconfig awscli npm make golang-bin gcc-c++ gh
+
+- name: pip - install packages
+  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- python3 -m pip install pipenv poetry pre-commit git-review tox ipython ipdb
 
 - name: bash-insulter - just for fun
   ansible.builtin.get_url:
