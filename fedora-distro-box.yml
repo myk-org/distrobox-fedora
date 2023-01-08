@@ -39,11 +39,11 @@
   - name: Update and install Fedora box packages
     ansible.builtin.include_tasks: tasks/fedora_box_packages_playbook.yml
 
-  - name: Install and configure AstroNvim
-    ansible.builtin.include_tasks: tasks/astronvim.yml
-
   - name: Configure zsh
     ansible.builtin.include_tasks: tasks/zsh_playbook.yml
 
   - name: Install Openshift-related packages
     ansible.builtin.include_tasks: tasks/openshift_packages_playbook.yml
+
+  - name: Install and configure AstroNvim
+    ansible.builtin.include_tasks: tasks/astronvim.yml
