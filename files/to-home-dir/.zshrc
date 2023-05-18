@@ -165,7 +165,18 @@ EDITOR=nvim
 GIT_EDITOR=$EDITOR
 
 # Aliases
-alias vim="nvim"
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=relative"
+alias dnfi="sudo dnf install"
+alias dnfs="dnf search"
+alias dnfu="sudo dnf update"
+alias pip=pip3
+alias vi=vim
+alias vim=nvim
+alias tailf="tail -f"
+alias wgetc="wget --no-check-certificate"
+alias xmlv="xmllint --format"
+alias sshx="ssh -X"
+alias hostx="distrobox-host-exec"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -186,10 +197,6 @@ alias vim="nvim"
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
