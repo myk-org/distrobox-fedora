@@ -31,8 +31,6 @@ _comp_options+=(globdots)		# Include hidden files.
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
