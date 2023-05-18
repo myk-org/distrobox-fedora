@@ -38,7 +38,8 @@
 - name: Download fonts for powerlevel10k
   ansible.builtin.copy:
     src: files/fonts/
-    dest: "{{ box_homedir }}/.local/share/fonts/"
+    dest: "/usr/local/share/fonts/"
+  become: true
 
 - name: Apply fonts
   ansible.builtin.shell: fc-cache -v

@@ -2,8 +2,3 @@
   ansible.builtin.file:
     path: "{{ box_homedir }}/.local/bin/"
     state: directory
-
-- name: Create ~/.local/share/fonts/ directory
-  ansible.builtin.file:
-    path: "{{ box_homedir }}/.local/share/fonts/"
-    state: directory
