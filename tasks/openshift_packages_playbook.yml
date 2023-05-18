@@ -1,26 +1,25 @@
-- name: Get kubectl laest version
-  ansible.builtin.shell: curl -L -s "https://dl.k8s.io/release/stable.txt"
-  register: kubectl_version_result
+#- name: Get kubectl laest version
+#  ansible.builtin.shell: curl -L -s "https://dl.k8s.io/release/stable.txt"
+#  register: kubectl_version_result
 
-- name: Download kubectl
+- name: Download oc and kubectl
   ansible.builtin.get_url:
-    url: "https://dl.k8s.io/release/{{ kubectl_version_result.stdout }}/bin/linux/amd64/kubectl"
-    dest: "{{ box_homedir }}/.local/bin/kubectl"
-    mode: '+x'
+    url: "https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest/openshift-client-linux-4.13.0.tar.gz"
+    dest: "/tmp"
 
-- name: rosa - download latest tar.gz
-  ansible.builtin.get_url:
-    url: https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
-    dest: "{{ box_homedir }}/rosa-linux.tar.gz"
-
-- name: Extract rosa into ~/.local/bin/
+- name: Extract oc and ubectl
   ansible.builtin.unarchive:
-    src: "{{ box_homedir }}/rosa-linux.tar.gz"
+    src: /tmp/openshift-client-linux-4.13.0.tar.gz
     dest: "{{ box_homedir }}/.local/bin/"
-    mode: "+x"
+
+#- name: Download kubectl
+#  ansible.builtin.get_url:
+#    url: "https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest/openshift-client-linux-4.13.0.tar.gz"
+#    dest: "{{ box_homedir }}/.local/bin/kubectl"
+#    mode: '+x'
+
+- name: rosa - download latest
+  ansible.builtin.shell: gh -R https://github.com/openshift/rosa release download -p 'rosa-linux-amd64' -O {{ box_homedir }}/.local/bin/rosa --clobber
 
 - name: Download ocm-cli
-  ansible.builtin.get_url:
-    url: https://github.com/openshift-online/ocm-cli/releases/latest/download/ocm-linux-amd64
-    dest: "{{ box_homedir }}/.local/bin/ocm-cli"
-    mode: '+x'
+  ansible.builtin.shell: gh -R https://github.com/openshift-online/ocm-cli release download -p 'ocm-darwin-amd64' -O {{ box_homedir }}/.local/bin/ocm --clobber

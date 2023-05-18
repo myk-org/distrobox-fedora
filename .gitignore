@@ -1,3 +1,4 @@
 ### Ansible template
 *.retry
 install.sh
+.idea/

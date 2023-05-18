@@ -1,5 +1,5 @@
 - name: Create latest distrobox-fedora
-  ansible.builtin.shell: distrobox-create --yes --image fedora:37 --name "{{ box_name }}" --home "{{ box_homedir }}"
+  ansible.builtin.shell: distrobox-create --yes --image fedora:38 --name "{{ box_name }}" --home "{{ box_homedir }}"
 
 - name: Initialize distrobox-fedora
   ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- echo 'Done'
