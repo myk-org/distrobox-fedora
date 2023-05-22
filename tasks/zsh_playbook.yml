@@ -41,9 +41,6 @@
     dest: "/usr/local/share/fonts/"
   become: true
 
-- name: Apply fonts
-  ansible.builtin.shell: fc-cache -v
-
 - name: clone powerlevel10k zsh theme
   ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k.git

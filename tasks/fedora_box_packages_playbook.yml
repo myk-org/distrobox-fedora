@@ -14,4 +14,4 @@
     mode: "+x"
 
 - name: Update fonts
-  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sudo fc-cache -v
+  ansible.builtin.shell: sudo fc-cache -v
