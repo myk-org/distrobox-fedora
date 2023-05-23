@@ -1,17 +1,18 @@
+---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: "v4.4.0"
     hooks:
-    - id: check-merge-conflict
-    - id: debug-statements
-    - id: trailing-whitespace
-    - id: end-of-file-fixer
-    - id: check-ast
-    - id: check-builtin-literals
-    - id: check-yaml
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: check-yaml
 
   - repo: https://github.com/jorisroovers/gitlint
-    rev:  "v0.19.1"
+    rev: "v0.19.1"
     hooks:
       - id: gitlint
 
@@ -20,17 +21,36 @@ repos:
     hooks:
       - id: yamllint
 
-  - repo: https://github.com/ansible/ansible-lint
-    rev: "v6.16.2"
-    hooks:
-      - id: ansible-lint
-
   - repo: https://github.com/IamTheFij/ansible-pre-commit
     rev: "v1.0.0"
     hooks:
       - id: encryption-check
-  #
-  # autoflake
-  # isort
-  # black
-  # flake8
+
+  - repo: https://github.com/ansible-community/ansible-lint.git
+    rev: "v6.16.2"
+    hooks:
+      - id: ansible-lint
+        files: \.(yaml|yml)$
+
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.2.1
+    hooks:
+      - id: add-trailing-comma
+        args: [--py36-plus]
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.31.1
+    hooks:
+      - id: markdownlint
+        files: integrations/docs
+        entry: markdownlint -c .markdownlint.yml
+
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.17
+    hooks:
+      - id: shellcheck
+
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.4.3-1
+    hooks:
+      - id: shfmt
