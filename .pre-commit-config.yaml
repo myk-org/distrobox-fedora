@@ -32,12 +32,6 @@ repos:
       - id: ansible-lint
         files: \.(yaml|yml)$
 
-  - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.1
-    hooks:
-      - id: add-trailing-comma
-        args: [--py36-plus]
-
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.31.1
     hooks:
