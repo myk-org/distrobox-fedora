@@ -20,6 +20,7 @@ repos:
     rev: "v1.32.0"
     hooks:
       - id: yamllint
+        args: ["-d {extends: default, rules: {line-length: {max: 120}}}"]
 
   - repo: https://github.com/IamTheFij/ansible-pre-commit
     rev: "v1.0.0"
