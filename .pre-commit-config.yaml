@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: "v4.4.0"
+    rev: v4.4.0
     hooks:
       - id: check-merge-conflict
       - id: debug-statements
@@ -12,25 +12,20 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/jorisroovers/gitlint
-    rev: "v0.19.1"
+    rev: v0.19.1
     hooks:
       - id: gitlint
 
-  - repo: https://github.com/adrienverge/yamllint
-    rev: "v1.32.0"
-    hooks:
-      - id: yamllint
-        args: ["-d {extends: default, rules: {line-length: {max: 120}}}"]
-
   - repo: https://github.com/IamTheFij/ansible-pre-commit
-    rev: "v1.0.0"
+    rev: v1.0.0
     hooks:
       - id: encryption-check
 
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: "v6.16.2"
+    rev: v6.16.2
     hooks:
       - id: ansible-lint
+        args: ["-c", ".ansible-lint"]
         files: \.(yaml|yml)$
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
@@ -49,3 +44,9 @@ repos:
     rev: v3.4.3-1
     hooks:
       - id: shfmt
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.32.0
+    hooks:
+      - id: yamllint
+        args: ['-d {extends: default, rules: {line-length: {max: 120}}}']

@@ -1,3 +1,4 @@
+---
 - name: zsh - Change shell
   ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sudo -k chsh -s /usr/bin/zsh {{ user }}
 
@@ -7,13 +8,13 @@
 - name: oh-my-zsh - copy install script
   ansible.builtin.copy:
     src: zsh-install.sh
-    dest: "{{ box_homedir }}/zsh-install.sh"
+    dest: '{{ box_homedir }}/zsh-install.sh'
 
 - name: oh-my-zsh - install
   ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sh "{{ box_homedir }}"/zsh-install.sh
   register: command_result
   # DO not fail if oh-my-zsh is installed
-  failed_when: "not command_result.stdout"
+  failed_when: not command_result.stdout
 
 - name: oh-my-zsh - remove install script
   ansible.builtin.file:
@@ -23,26 +24,26 @@
 - name: oh-my-zsh - copy needed files to home directory
   ansible.builtin.copy:
     src: files/to-home-dir/
-    dest: "{{ box_homedir }}/"
+    dest: '{{ box_homedir }}/'
 
 - name: clone zsh plugins
   ansible.builtin.git:
-    repo: "{{ item.repo}}"
-    dest: "{{ box_homedir }}/.oh-my-zsh/custom/plugins/{{ item.name }}"
+    repo: '{{ item.repo}}'
+    dest: '{{ box_homedir }}/.oh-my-zsh/custom/plugins/{{ item.name }}'
   loop:
-  - { repo: 'https://github.com/TamCore/autoupdate-oh-my-zsh-plugins', name: 'autoupdate' }
-  - { repo: 'https://github.com/chrissicool/zsh-256color', name: 'zsh-256color' }
-  - { repo: 'https://github.com/zsh-users/zsh-autosuggestions', name: 'zsh-autosuggestions' }
-  - { repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git', name: 'zsh-syntax-highlighting' }
+    - {repo: https://github.com/TamCore/autoupdate-oh-my-zsh-plugins, name: autoupdate}
+    - {repo: https://github.com/chrissicool/zsh-256color, name: zsh-256color}
+    - {repo: https://github.com/zsh-users/zsh-autosuggestions, name: zsh-autosuggestions}
+    - {repo: https://github.com/zsh-users/zsh-syntax-highlighting.git, name: zsh-syntax-highlighting}
 
 - name: Download fonts for powerlevel10k
   ansible.builtin.copy:
     src: files/fonts/
-    dest: "/usr/local/share/fonts/"
+    dest: /usr/local/share/fonts/
   become: true
 
 - name: clone powerlevel10k zsh theme
   ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k.git
-    dest: "{{ box_homedir }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    dest: '{{ box_homedir }}/.oh-my-zsh/custom/themes/powerlevel10k'
     depth: 1

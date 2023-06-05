@@ -1,16 +1,17 @@
+---
 #- name: Get kubectl laest version
 #  ansible.builtin.shell: curl -L -s "https://dl.k8s.io/release/stable.txt"
 #  register: kubectl_version_result
 
 - name: Download oc and kubectl
   ansible.builtin.get_url:
-    url: "https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest/openshift-client-linux-4.13.0.tar.gz"
-    dest: "/tmp"
+      url: https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest/openshift-client-linux-4.13.0.tar.gz
+      dest: /tmp
 
 - name: Extract oc and ubectl
   ansible.builtin.unarchive:
-    src: /tmp/openshift-client-linux-4.13.0.tar.gz
-    dest: "{{ box_homedir }}/.local/bin/"
+      src: /tmp/openshift-client-linux-4.13.0.tar.gz
+      dest: '{{ box_homedir }}/.local/bin/'
 
 #- name: Download kubectl
 #  ansible.builtin.get_url:
@@ -22,4 +23,5 @@
   ansible.builtin.shell: gh -R https://github.com/openshift/rosa release download -p 'rosa-linux-amd64' -O {{ box_homedir }}/.local/bin/rosa --clobber
 
 - name: Download ocm-cli
-  ansible.builtin.shell: gh -R https://github.com/openshift-online/ocm-cli release download -p 'ocm-darwin-amd64' -O {{ box_homedir }}/.local/bin/ocm --clobber
+  ansible.builtin.shell: gh -R https://github.com/openshift-online/ocm-cli release download -p 'ocm-darwin-amd64' -O {{ box_homedir }}/.local/bin/ocm
+      --clobber

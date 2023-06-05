@@ -1,3 +1,4 @@
+---
 - name: Create latest distrobox-fedora
   ansible.builtin.shell: distrobox-create --yes --image fedora:38 --name "{{ box_name }}" --home "{{ box_homedir }}"
 

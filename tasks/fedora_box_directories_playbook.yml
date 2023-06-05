@@ -1,4 +1,5 @@
+---
 - name: Create ~/.local/bin/ directory
   ansible.builtin.file:
-    path: "{{ box_homedir }}/.local/bin/"
-    state: directory
+      path: '{{ box_homedir }}/.local/bin/'
+      state: directory
