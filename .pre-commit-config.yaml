@@ -27,6 +27,7 @@ repos:
       - id: ansible-lint
         args: ["-c", ".ansible-lint"]
         files: \.(yaml|yml)$
+        # entry: ansible-lint
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.31.1

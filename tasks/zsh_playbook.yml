@@ -27,7 +27,7 @@
     src: files/to-home-dir/
     dest: '{{ box_homedir }}/'
 
-- name: clone zsh plugins
+- name: Clone zsh plugins
   ansible.builtin.git:
     repo: '{{ item.repo}}'
     dest: '{{ box_homedir }}/.oh-my-zsh/custom/plugins/{{ item.name }}'
@@ -43,7 +43,7 @@
     dest: /usr/local/share/fonts/
   become: true
 
-- name: clone powerlevel10k zsh theme
+- name: Clone powerlevel10k zsh theme
   ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: '{{ box_homedir }}/.oh-my-zsh/custom/themes/powerlevel10k'

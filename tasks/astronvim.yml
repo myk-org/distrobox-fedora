@@ -1,5 +1,5 @@
 ---
-- name: clone AstroNvim
+- name: Clone AstroNvim
   ansible.builtin.git:
       repo: https://github.com/AstroNvim/AstroNvim
       dest: '{{ box_homedir }}/.config/nvim'
