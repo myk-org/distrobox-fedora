@@ -3,7 +3,8 @@
   ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sudo -k chsh -s /usr/bin/zsh {{ user }}
 
 - name: Download oh-my-zsh install script locally
-  ansible.builtin.shell: wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O zsh-install.sh
+  ansible.builtin.shell: wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
+    -O zsh-install.sh
 
 - name: oh-my-zsh - copy install script
   ansible.builtin.copy:
