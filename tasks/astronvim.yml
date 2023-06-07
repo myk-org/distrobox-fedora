@@ -5,15 +5,17 @@
       dest: '{{ box_homedir }}/.config/nvim'
 
 - name: AstroNvim - run MasonInstall
-  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- nvim  --headless /
-    -c 'MasonInstall black isort yamlfmt markdownlint jsonlint shellcheck /
-    pyright yaml-language-server marksman json-lsp gopls dockerfile-language-server /
+  ansible.builtin.shell: >
+    distrobox-enter "{{ box_name }}" -- nvim  --headless
+    -c 'MasonInstall black isort yamlfmt markdownlint jsonlint shellcheck
+    pyright yaml-language-server marksman json-lsp gopls dockerfile-language-server
     bash-language-server awk-language-server ansible-language-server'
   async: 10
   poll: 0
 
 - name: AstroNvim - run PackerSync
-  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- nvim  --headless /
+  ansible.builtin.shell: >
+    distrobox-enter "{{ box_name }}" -- nvim  --headless
     -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
   async: 10
   poll: 0
