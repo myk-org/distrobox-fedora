@@ -1,8 +1,8 @@
 ---
 - name: Clone AstroNvim
   ansible.builtin.git:
-      repo: https://github.com/AstroNvim/AstroNvim
-      dest: '{{ box_homedir }}/.config/nvim'
+    repo: https://github.com/AstroNvim/AstroNvim
+    dest: '{{ box_homedir }}/.config/nvim'
 
 - name: AstroNvim - run MasonInstall
   ansible.builtin.shell: >
