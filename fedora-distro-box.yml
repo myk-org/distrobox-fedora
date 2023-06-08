@@ -1,49 +1,50 @@
+---
 - name: Distrobox Fedora
   hosts: localhost
   connection: local
 
   pre_tasks:
-  - name: Set box name as fact
-    ansible.builtin.set_fact:
-      box_name: fedora-38
+    - name: Set box name as fact
+      ansible.builtin.set_fact:
+        box_name: fedora-38
 
-  - name: Set base box homedir as fact
-    ansible.builtin.set_fact:
-      base_box_homedir: "{{ home }}/distrobox"
+    - name: Set base box homedir as fact
+      ansible.builtin.set_fact:
+        base_box_homedir: '{{ home }}/distrobox'
 
-  - name: Set Fedora homedir as fact
-    ansible.builtin.set_fact:
-      box_homedir: "{{ base_box_homedir }}/{{ box_name }}"
+    - name: Set Fedora homedir as fact
+      ansible.builtin.set_fact:
+        box_homedir: '{{ base_box_homedir }}/{{ box_name }}'
 
-  - name: Install the latest version of Distrobox
-    ansible.builtin.package:
-      name: distrobox
-      state: latest
-    become: true
+    - name: Install the latest version of Distrobox
+      ansible.builtin.package:
+        name: distrobox
+        state: latest
+      become: true
 
-  - name: Create box_homedir directory
-    ansible.builtin.file:
-      path: "{{ box_homedir }}"
-      state: directory
+    - name: Create box_homedir directory
+      ansible.builtin.file:
+        path: '{{ box_homedir }}'
+        state: directory
 
   tasks:
-  - name: Create and initialize Fedora box
-    ansible.builtin.include_tasks: tasks/distrobox_playbook.yml
+    - name: Create and initialize Fedora box
+      ansible.builtin.include_tasks: tasks/distrobox_playbook.yml
 
-  - name: Set box base_box_homedir dir permissions
-    ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
+    - name: Set box base_box_homedir dir permissions
+      ansible.builtin.shell: sudo chown -R "{{ user }}":"{{ user }}" "{{ base_box_homedir }}"
 
-  - name: Create needed directories
-    ansible.builtin.include_tasks: tasks/fedora_box_directories_playbook.yml
+    - name: Create needed directories
+      ansible.builtin.include_tasks: tasks/fedora_box_directories_playbook.yml
 
-  - name: Update and install Fedora box packages
-    ansible.builtin.include_tasks: tasks/fedora_box_packages_playbook.yml
+    - name: Update and install Fedora box packages
+      ansible.builtin.include_tasks: tasks/fedora_box_packages_playbook.yml
 
-  - name: Configure zsh
-    ansible.builtin.include_tasks: tasks/zsh_playbook.yml
+    - name: Configure zsh
+      ansible.builtin.include_tasks: tasks/zsh_playbook.yml
 
-  - name: Install Openshift-related packages
-    ansible.builtin.include_tasks: tasks/openshift_packages_playbook.yml
+    - name: Install Openshift-related packages
+      ansible.builtin.include_tasks: tasks/openshift_packages_playbook.yml
 
-  - name: Install and configure AstroNvim
-    ansible.builtin.include_tasks: tasks/astronvim.yml
+    - name: Install and configure AstroNvim
+      ansible.builtin.include_tasks: tasks/astronvim.yml

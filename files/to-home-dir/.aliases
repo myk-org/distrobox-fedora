@@ -1,0 +1,25 @@
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=relative"
+alias gitb="git branch -v"
+alias gmaster="git checkout master"
+alias batpct=battery_pct
+alias dnfi="sudo dnf install"
+alias dnfs="dnf search"
+alias dnfu="sudo dnf update"
+alias pip=pip3
+alias pipi="sudo pip install"
+alias pipu="sudo pip install -U"
+alias vi=vim
+alias vim=nvim
+alias tailf="tail -f"
+alias sst=/home/myakove/bin/ssh-nuc-tunnel.sh
+alias wgetc="wget --no-check-certificate"
+alias svim="sudo vim"
+alias xmlv="xmllint --format"
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dml="dmenu -i -l 50"
+alias sshx="ssh -X"
+alias vk="openvpn-connect.sh && kinit-login"
+alias dse=distrobox-enter
+alias rp="rich"
+#alias ll="colorls -lA --sd --gs"
+#alias ls="colorls -xA --sd --gs"

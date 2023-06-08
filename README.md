@@ -1,12 +1,12 @@
 Create a Fedora container via [distrobox](https://github.com/89luca89/distrobox)
 [why is this good for](https://github.com/89luca89/distrobox#what-it-does)
 ```
-Seamlessly integrates with the rest of the operating system by providing access to the user's home directory, 
-the Wayland and X11 sockets, networking, removable devices (like USB sticks), systemd journal, 
+Seamlessly integrates with the rest of the operating system by providing access to the user's home directory,
+the Wayland and X11 sockets, networking, removable devices (like USB sticks), systemd journal,
 SSH agent, D-Bus, ulimits, /dev and the udev database, etc...
-``` 
+```
 ## Image includes:
-Via pip: 
+Via pip:
   - pipenv
   - poetry
   - pre-commit
@@ -45,7 +45,7 @@ ansible-galaxy collection install community.general
 ```bash
 ansible-playbook -K fedora-distro-box.yml --extra-vars "home=<user home dir> user=<user name> box_name=<box name (default is distrobox-fedora)>"
 ```
-where home will be the home directory for the user inside the box and user should be the current login user 
+where home will be the home directory for the user inside the box and user should be the current login user
 
 ## Usage
 ```bash
@@ -57,6 +57,6 @@ vim uses [AstroNvim](https://github.com/AstroNvim/AstroNvim)
 
 
 ## Tips
-To enter automatically configure your terminal to exec ```distrobox-enter distrobox-fedora``` on each new shell  
-Inside the box $HOME will be the box home (under distrobox/<box name>) and the local user home is $HOST_HOME  
-To execute command on the host from the box run `distrobox-host-exec <command>`  
+To enter automatically configure your terminal to exec ```distrobox-enter distrobox-fedora``` on each new shell
+Inside the box $HOME will be the box home (under distrobox/<box name>) and the local user home is $HOST_HOME
+To execute command on the host from the box run `distrobox-host-exec <command>`
