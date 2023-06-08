@@ -1,17 +1,23 @@
+---
 - name: dnf - update packages
   ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sudo dnf -y update
 
 - name: dnf - install packages
-  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- sudo dnf -y install python3-pip zsh sshpass git util-linux-user wget vim neovim tmux dnf-automatic fontconfig awscli npm make golang-bin gcc-c++ gh python python-devel
+  ansible.builtin.shell: >
+    distrobox-enter "{{ box_name }}" -- sudo dnf -y install
+    python3-pip zsh sshpass git util-linux-user wget vim neovim tmux dnf-automatic
+    fontconfig awscli npm make golang-bin gcc-c++ gh python python-devel
 
 - name: pip - install packages
-  ansible.builtin.shell: distrobox-enter "{{ box_name }}" -- python3 -m pip install pipenv poetry pre-commit git-review tox ipython ipdb virtualenvwrapper
+  ansible.builtin.shell: >
+    distrobox-enter "{{ box_name }}" -- python3 -m pip install pipenv poetry
+    pre-commit git-review tox ipython ipdb virtualenvwrapper
 
 - name: bash-insulter - just for fun
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
-    dest: "{{ box_homedir }}/.local/bin/bash.command-not-found"
-    mode: "+x"
+    dest: '{{ box_homedir }}/.local/bin/bash.command-not-found'
+    mode: +x
 
 - name: Update fonts
   ansible.builtin.shell: sudo fc-cache -v

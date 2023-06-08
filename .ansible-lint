@@ -1,0 +1,10 @@
+---
+profile: basic
+skip_list:
+    - yaml[line-length]
+    - command-instead-of-module
+    - command-instead-of-shell
+    - name[casing]
+
+exclude_paths:
+    - .github/*
