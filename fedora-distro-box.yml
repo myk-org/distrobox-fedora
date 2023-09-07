@@ -6,7 +6,7 @@
   pre_tasks:
     - name: Set box name as fact
       ansible.builtin.set_fact:
-        box_name: fedora-38
+        box_name: distrobox-fedora
 
     - name: Set base box homedir as fact
       ansible.builtin.set_fact:

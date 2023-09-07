@@ -34,6 +34,8 @@ Via dnf:
 ## Requirements
 [ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html): install using package manager
 
+[GitHub cli](https://cli.github.com/): install via `sudo dnf install gh`
+
 ## Installation
 Clone the repository and install Ansible community plugins:
 ```bash
