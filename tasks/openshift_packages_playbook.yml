@@ -8,7 +8,7 @@
     url: https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest/openshift-client-linux-4.13.11.tar.gz
     dest: /tmp
 
-- name: Extract oc and ubectl
+- name: Extract oc and kubectl
   ansible.builtin.unarchive:
     src: /tmp/openshift-client-linux-4.13.11.tar.gz
     dest: '{{ box_homedir }}/.local/bin/'
