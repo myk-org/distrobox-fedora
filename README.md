@@ -55,7 +55,7 @@ distrobox-enter distrobox-fedora # Or the name of the box if passed in the comma
 ```
 
 ## vim Usage
-vim uses [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+vim uses [LazyVim](https://www.lazyvim.org/)
 
 
 ## Tips
