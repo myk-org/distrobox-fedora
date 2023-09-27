@@ -39,7 +39,7 @@ Via dnf:
 ## Installation
 Clone the repository and install Ansible community plugins:
 ```bash
-git clone https://github.com/myakove/distrobox-fedora.git
+git clone https://github.com/myk-org/distrobox-fedora.git
 cd distrobox-fedora
 ansible-galaxy collection install community.general
 ```
@@ -55,7 +55,7 @@ distrobox-enter distrobox-fedora # Or the name of the box if passed in the comma
 ```
 
 ## vim Usage
-vim uses [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+vim uses [LazyVim](https://www.lazyvim.org/)
 
 
 ## Tips

@@ -1,0 +1,5 @@
+---
+- name: Clone LazyVim
+  ansible.builtin.git:
+    repo: https://github.com/LazyVim/starter
+    dest: '{{ box_homedir }}/.config/nvim'
