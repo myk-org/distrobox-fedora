@@ -30,18 +30,18 @@ repos:
         files: \.(yaml|yml)$
 
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.22
+    rev: v0.1.23
     hooks:
       - id: shellcheck
 
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.7.0-1
+    rev: v3.7.0-2
     hooks:
       - id: shfmt
         exclude: files/to-home-dir #TODO?
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.32.0
+    rev: v1.33.0
     hooks:
       - id: yamllint
         args: ['-d {extends: default, rules: {line-length: {max: 120}}}']
