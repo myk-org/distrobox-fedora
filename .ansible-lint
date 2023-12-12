@@ -9,3 +9,4 @@ skip_list:
 exclude_paths:
     - .github/*
     - .pre-commit-config.yaml
+    - sweep.yaml
