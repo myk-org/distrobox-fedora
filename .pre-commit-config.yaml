@@ -23,7 +23,7 @@ repos:
       - id: encryption-check
 
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.22.2
+    rev: v24.2.0
     hooks:
       - id: ansible-lint
         args: ["-c", ".ansible-lint"]
@@ -35,13 +35,13 @@ repos:
       - id: shellcheck
 
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.7.0-4
+    rev: v3.8.0-1
     hooks:
       - id: shfmt
         exclude: files/to-home-dir #TODO?
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.33.0
+    rev: v1.34.0
     hooks:
       - id: yamllint
         args: ['-d {extends: default, rules: {line-length: {max: 120}}}']
