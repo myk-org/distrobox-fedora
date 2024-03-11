@@ -5,12 +5,12 @@
 
 - name: Download oc and kubectl
   ansible.builtin.get_url:
-    url: https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest/openshift-client-linux-4.15.0.tar.gz
+    url: https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz
     dest: /tmp
 
 - name: Extract oc and kubectl
   ansible.builtin.unarchive:
-    src: /tmp/openshift-client-linux-4.15.0.tar.gz
+    src: /tmp/openshift-client-linux.tar.gz
     dest: '{{ box_homedir }}/.local/bin/'
 
 # - name: Download kubectl
