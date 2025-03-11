@@ -18,7 +18,7 @@ repos:
       - id: gitlint
 
   - repo: https://github.com/IamTheFij/ansible-pre-commit
-    rev: v0.1.2
+    rev: v1.0.1
     hooks:
       - id: encryption-check
 
@@ -35,7 +35,7 @@ repos:
       - id: shellcheck
 
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.10.0-2
+    rev: v3.11.0-1
     hooks:
       - id: shfmt
         exclude: files/to-home-dir #TODO?
